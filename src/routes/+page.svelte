@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { PageData } from "./$types";
+	import type { PageData } from './$types';
 
-    let {data}: {data: PageData} = $props();
+	let { data }: { data: PageData } = $props();
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -9,18 +9,17 @@
 
 <h1 class="text-xl">Events</h1>
 {#await data.events}
-    <p>Loading events...</p>
+	<p>Loading events...</p>
 {:then events}
-    {#each events as event}
-        <div>
-            <h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
-            <p>{event.description}</p>
-            <p>{event.date}</p>
-        </div>
-    {/each}
+	{#each events as event}
+		<div>
+			<h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
+			<p>{event.description}</p>
+			<p>{event.date}</p>
+		</div>
+	{/each}
 {:catch error}
-    <p>Error loading events: {error.message}</p>
+	<p>Error loading events: {error.message}</p>
 {/await}
-
 
 <a class="btn" href="/newevent" role="button">Add Event</a>
