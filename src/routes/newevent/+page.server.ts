@@ -13,19 +13,10 @@ export const actions: Actions = {
 			return fail(400, { error: 'Title and Date are required' });
 		}
 
-		// const newEvent = await createEvent({ title, description, date });
+		
 		await createEvent({ title, description, date });
 		throw redirect(303, "/");
+		// const newEvent = await createEvent({ title, description, date });
 		// throw redirect(303, `/${newEvent.id}`);
-		// try {
-		// 	const newEvent = await createEvent({ title, description, date });
-		// 	throw redirect(303, `/${newEvent.id}`);
-		// } catch (err) {
-		// 	if (err instanceof Error) {  // Handle the redirect being thrown
-        //         throw err;
-        //     }
-		// 	console.error(err);
-		// 	return fail(500, { error: 'Failed to create event. Please try again.' });
-		// }
 	}
 };
