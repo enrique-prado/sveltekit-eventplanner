@@ -11,6 +11,7 @@
     let description: string | undefined = '';
     let date = '';
     let eventId: number | null = null;
+	let dateError: string | null = null;
 
 	onMount(async () => {
         if (page.url.searchParams.has('update')) {
@@ -32,8 +33,19 @@
 
 	const handleSubmit: SubmitFunction = () => {
 		isSaving = true;
+		dateError = null;
 		return async ({ result, update }) => {
 			try {
+				//Validate date
+				const selectedDate = new Date(date);
+                const now = new Date();
+
+                if (selectedDate < now) {
+                    dateError = 'Event date cannot be in the past.';
+                    isSaving = false;
+                    return; // Cancel form submission
+                }
+
 				const res = await result;
 				// await update();  TODO: Is this needed? works without it but it may cause timing issues.
 				console.log("res = ", res);
@@ -57,6 +69,9 @@
 	</textarea>
 	<label for="date">Date</label>
 	<input type="datetime-local" id="date" name="date" required bind:value={date} />
+	{#if dateError}
+        <p class="text-red-500">{dateError}</p>
+    {/if}
 	<button type="submit" disabled={isSaving}>
 		{#if isSaving}
 			Saving...
