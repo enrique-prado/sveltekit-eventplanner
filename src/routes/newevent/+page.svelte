@@ -7,18 +7,19 @@
 
 	const handleSubmit: SubmitFunction = () => {
 		isSaving = true;
-		return async ({ result }) => {
+		return async ({ result, update }) => {
 			try {
-            const res = await result;
-			console.log('Form submission result:', res);
-            if (res.type === 'success' || res.type === 'redirect') {
-                // Handle both success and redirect cases
-                const location = res.type === 'redirect' ? res.location : '/';
-                await goto(location);
-            }
-        } finally {
-            isSaving = false;
-        }
+				const res = await result;
+				// await update();  TODO: Is this needed? works without it but it may cause timing issues.
+				console.log("res = ", res);
+				if (res.type === 'redirect') {
+                    await goto(res.location);
+                }
+			} catch (err) {
+				console.error(err);
+			} finally {
+				isSaving = false;
+			}
 		};
 	};
 </script>
