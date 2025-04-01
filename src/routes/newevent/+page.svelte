@@ -8,8 +8,17 @@
 	const handleSubmit: SubmitFunction = () => {
 		isSaving = true;
 		return async ({ result }) => {
-			const res = await result;
-			isSaving = false;
+			try {
+            const res = await result;
+			console.log('Form submission result:', res);
+            if (res.type === 'success' || res.type === 'redirect') {
+                // Handle both success and redirect cases
+                const location = res.type === 'redirect' ? res.location : '/';
+                await goto(location);
+            }
+        } finally {
+            isSaving = false;
+        }
 		};
 	};
 </script>
