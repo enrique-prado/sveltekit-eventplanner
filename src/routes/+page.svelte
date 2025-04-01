@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { invalidate } from '$app/navigation';
 
 	let { data }: { data: PageData } = $props();
 
 	async function deleteEvent(id: number) {
         await fetch(`/delete/${id}`, { method: 'POST' });
-        window.location.reload(); // Simplest way to refresh data
+		await invalidate('data:events'); // Refresh data.events after deletion
     }
 </script>
 
