@@ -3,6 +3,7 @@ import { deleteEventById } from '$lib/server/remote-events';
 import { error, json } from '@sveltejs/kit';
 import type { RouteParams } from './$types';
 
+// TODO: Add confirmation dialog
 export async function POST({ params }: { params: RouteParams }) {
     const { eventId } = params;
 
@@ -16,6 +17,7 @@ export async function POST({ params }: { params: RouteParams }) {
 
         if (deleted) {
             return json({ success: true });
+            // TODO: Add notification toast
         }
     } catch (err) {
         console.error('Error deleting event:', err);
