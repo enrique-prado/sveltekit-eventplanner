@@ -13,6 +13,14 @@ export const actions: Actions = {
 			return fail(400, { error: 'Title and Date are required' });
 		}
 
+		//Server side validation for date
+		const newDate = new Date(date);
+        const now = new Date();
+
+        if (newDate < now) {
+            return fail(400, { error: 'Event date cannot be in the past.' });
+        }
+
 		//TODO: Redirect update event here with custom action?
 		await createEvent({ title, description, date });
 		throw redirect(303, "/");
