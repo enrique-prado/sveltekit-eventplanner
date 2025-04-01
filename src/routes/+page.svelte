@@ -39,6 +39,9 @@
 									<button aria-label="delete" class="hover:bg-gray-200" onclick={() => deleteEvent(event.id)}>
 										<i class="fa fa-trash"></i>
 									</button>
+									<a href="/newevent?update={event.id}" aria-label="edit" class="hover:bg-gray-200">
+										<i class="fa fa-edit"></i>
+									</a>
 								</span>
 							</div>
                         </td>

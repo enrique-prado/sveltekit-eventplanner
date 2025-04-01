@@ -13,7 +13,7 @@ export const actions: Actions = {
 			return fail(400, { error: 'Title and Date are required' });
 		}
 
-		
+		//TODO: Redirect update event here with custom action?
 		await createEvent({ title, description, date });
 		throw redirect(303, "/");
 		// const newEvent = await createEvent({ title, description, date });
