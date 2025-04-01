@@ -33,7 +33,13 @@
 						<td class="border px-4 py-2">{event.description}</td>
 						<td class="border px-4 py-2">{event.date}</td>
 						<td class="border px-4 py-2">
-                            <button onclick={() => deleteEvent(event.id)}>Delete</button>
+							<div class="group relative">
+								<span class="invisible group-hover:visible">
+									<button aria-label="delete" class="hover:bg-gray-200" onclick={() => deleteEvent(event.id)}>
+										<i class="fa fa-trash"></i>
+									</button>
+								</span>
+							</div>
                         </td>
 					</tr>
 				{/each}
