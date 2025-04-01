@@ -1,27 +1,20 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
-	// Removed EnhanceOptions as it is not exported from '$app/forms'
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
+
 	let isSaving = false;
 
-	const handleSubmit = (
-		form: HTMLFormElement,
-		event: SubmitEvent & { result: Promise<{ success: boolean }> }
-	) => {
+	const handleSubmit: SubmitFunction = () => {
 		isSaving = true;
-		result.then((res) => {
+		return async ({ result }) => {
+			const res = await result;
 			isSaving = false;
-			if (res.success) form.reset();
-		});
+		};
 	};
-
-	onMount(() => {
-		const form = document.querySelector<HTMLFormElement>('form');
-		if (form) enhance(form, handleSubmit);
-	});
 </script>
 
-<form method="POST" action="?/newevent" use:enhance>
+<form method="POST" use:enhance={handleSubmit}>
 	<label for="title">Title</label>
 	<input type="text" id="title" name="title" required />
 	<textarea id="description" name="description" rows="4" cols="50" placeholder="Description"

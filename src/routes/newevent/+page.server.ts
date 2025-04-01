@@ -17,6 +17,9 @@ export const actions: Actions = {
 			const newEvent = await createEvent({ title, description, date });
 			throw redirect(303, `/${newEvent.id}`);
 		} catch (err) {
+			if (err instanceof Error) {  // Handle the redirect being thrown
+                throw err;
+            }
 			console.error(err);
 			return fail(500, { error: 'Failed to create event. Please try again.' });
 		}
