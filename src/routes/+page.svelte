@@ -12,9 +12,8 @@
 
 <h1 class="text-xl text-center mb-4">Enrique's Event Planner</h1>
 <div class="flex flex-col">
-	<div class="flex justify-center gap-4">
-		<a class="btn" href="/newevent" role="button">Add Event</a>
-		<input placeholder="Search title" type="text" id="search" name="search" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+	<div class="flex justify-left w-[50vw] mx-[20vw]">
+		<a class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/newevent" role="button">Add Event</a>
 	</div>
 	<div class="flex justify-center">
 	{#await data.events}
