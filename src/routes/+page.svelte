@@ -2,12 +2,17 @@
 	import type { PageData } from './$types';
 	import { invalidate } from '$app/navigation';
 
-	let { data }: { data: PageData } = $props();
+	const { data }: { data: PageData } = $props();
 
 	async function deleteEvent(id: number) {
         await fetch(`/delete/${id}`, { method: 'POST' });
 		await invalidate('data:events'); // Refresh data.events after deletion
     }
+
+	function formatDate(dateString: string): string {
+		const date = new Date(dateString);
+		return date.toLocaleDateString("en-US");
+	}
 </script>
 
 <h1 class="text-xl text-center mb-4">Enrique's Event Planner</h1>
@@ -31,13 +36,13 @@
 			</thead>
 			<tbody>
 				{#each events as event}
-					<tr>
+					<tr class="group hover:bg-gray-100">
 						<td class="border px-4 py-2">{event.id}</td>
 						<td class="border border-x-0 px-4 py-2">{event.title}</td>
 						<td class="border border-x-0 px-4 py-2">{event.description}</td>
-						<td class="border border-x-0 px-4 py-2">{event.date}</td>
+						<td class="border border-x-0 px-4 py-2">{formatDate(event.date)}</td>
 						<td class="border px-4 py-2">
-							<div class="group relative">
+							<div class="relative">
 								<span class="invisible group-hover:visible">
 									<button aria-label="delete" class="px-2 hover:bg-gray-200" onclick={() => deleteEvent(event.id)}>
 										<i class="fa fa-trash"></i>
