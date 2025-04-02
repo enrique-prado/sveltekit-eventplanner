@@ -61,10 +61,10 @@
 						<td class="border px-4 py-2">
 							<div class="relative">
 								<span class="invisible group-hover:visible">
-									<a href="/newevent?update={event.id}" aria-label="edit" class="px-2 hover:bg-gray-200">
+									<a href="/newevent?update={event.id}" aria-label="edit" title="Edit event" class="px-2 hover:bg-gray-200">
 										<i class="fa fa-edit"></i>
 									</a>
-									<button aria-label="delete" class="px-2 hover:bg-gray-200" onclick={() => showDeleteDialog(event.id)}>
+									<button aria-label="delete" title="Delete event" class="px-2 hover:bg-gray-200" onclick={() => showDeleteDialog(event.id)}>
 										<i class="fa fa-trash"></i>
 									</button>
 								</span>
