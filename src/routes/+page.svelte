@@ -44,12 +44,12 @@
 						<td class="border px-4 py-2">
 							<div class="relative">
 								<span class="invisible group-hover:visible">
-									<button aria-label="delete" class="px-2 hover:bg-gray-200" onclick={() => deleteEvent(event.id)}>
-										<i class="fa fa-trash"></i>
-									</button>
 									<a href="/newevent?update={event.id}" aria-label="edit" class="px-2 hover:bg-gray-200">
 										<i class="fa fa-edit"></i>
 									</a>
+									<button aria-label="delete" class="px-2 hover:bg-gray-200" onclick={() => deleteEvent(event.id)}>
+										<i class="fa fa-trash"></i>
+									</button>
 								</span>
 							</div>
                         </td>
