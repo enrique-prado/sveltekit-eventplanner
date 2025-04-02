@@ -21,10 +21,7 @@ export const actions: Actions = {
             return fail(400, { error: 'Event date cannot be in the past.' });
         }
 
-		//TODO: Redirect update event here with custom action?
-		await createEvent({ title, description, date });
-		throw redirect(303, "/");
-		// const newEvent = await createEvent({ title, description, date });
-		// throw redirect(303, `/${newEvent.id}`);
+		const newEvent = await createEvent({ title, description, date });
+		throw redirect(303, `/${newEvent.id}`);
 	}
 };

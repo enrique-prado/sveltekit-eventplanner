@@ -51,8 +51,6 @@
 
 				const res = await result;
 				await invalidate("data:events");
-				// await update();  //TODO: Is this needed? works without it but it may cause timing issues.
-				console.log("res = ", res);
 				if (res.type === 'redirect') {
                     await goto(res.location);
                 }
@@ -72,7 +70,7 @@
 			<label for="title" class="mb-2">Title</label>
 			<input type="text" id="title" name="title" required bind:value={title} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
 		</div>
-		
+
 		<div class="mb-4">
 			<label for="date" class="mb-2">Date</label>
 			<input type="datetime-local" id="date" name="date" required bind:value={date} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
@@ -84,15 +82,18 @@
 			<textarea id="description" name="description" rows="4" cols="50" placeholder="Description"
 				bind:value={description} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 			</textarea>
-			<button type="submit" disabled={isSaving} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-				{#if isSaving}
-					Saving...
-				{:else if isEditing}
-					Save
-				{:else}
-					Create Event
-				{/if}
-			</button>
+			<div class="flex gap-4">
+				<button type="submit" disabled={isSaving} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+					{#if isSaving}
+						Saving...
+					{:else if isEditing}
+						Save
+					{:else}
+						Create Event
+					{/if}
+				</button>
+				<a class="btn bg-gray-300 hover:bg-gray-400 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" href="/" role="button">Back to Home</a>
+			</div>
 		</div>
 	</div>
 </form>
