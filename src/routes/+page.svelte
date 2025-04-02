@@ -4,10 +4,27 @@
 
 	const { data }: { data: PageData } = $props();
 
-	async function deleteEvent(id: number) {
-        await fetch(`/delete/${id}`, { method: 'POST' });
-		await invalidate('data:events'); // Refresh data.events after deletion
+	let eventToDelete: number | null = $state(null);
+	let confirmDialog: HTMLDialogElement;
+
+	function showDeleteDialog(id: number) {
+		eventToDelete = id;
+		confirmDialog.showModal();
+	}
+
+	async function deleteEvent() {
+		if (eventToDelete !== null) {
+			await fetch(`/delete/${eventToDelete}`, { method: "POST" });
+			await invalidate("data:events"); // Refresh data.events after deletion
+		}
+		eventToDelete = null;
+		confirmDialog.close();
     }
+
+	function cancelDelete() {
+		eventToDelete = null;
+		confirmDialog.close();
+	}
 
 	function formatDate(dateString: string): string {
 		const date = new Date(dateString);
@@ -47,7 +64,7 @@
 									<a href="/newevent?update={event.id}" aria-label="edit" class="px-2 hover:bg-gray-200">
 										<i class="fa fa-edit"></i>
 									</a>
-									<button aria-label="delete" class="px-2 hover:bg-gray-200" onclick={() => deleteEvent(event.id)}>
+									<button aria-label="delete" class="px-2 hover:bg-gray-200" onclick={() => showDeleteDialog(event.id)}>
 										<i class="fa fa-trash"></i>
 									</button>
 								</span>
@@ -60,6 +77,13 @@
 	{:catch error}
 		<p>Error loading events: {error.message}</p>
 	{/await}
-	
 	</div>
 </div>
+
+<dialog bind:this={confirmDialog} class="rounded shadow-lg p-6">
+    <p class="mb-4">Please confirm delete for event with id: {eventToDelete}</p>
+    <div class="flex justify-end space-x-2">
+        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onclick={deleteEvent}>Delete</button>
+        <button class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400" onclick={cancelDelete}>Cancel</button>
+    </div>
+</dialog>
