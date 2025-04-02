@@ -1,4 +1,3 @@
-// import type { RequestHandler } from './$types';
 import { updateEventById } from '$lib/server/remote-events';
 import { error, json } from '@sveltejs/kit';
 import type { RouteParams } from './$types';

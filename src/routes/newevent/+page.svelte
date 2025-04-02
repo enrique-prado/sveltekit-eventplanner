@@ -51,8 +51,6 @@
 
 				const res = await result;
 				await invalidate("data:events");
-				// await update();  //TODO: Is this needed? works without it but it may cause timing issues.
-				console.log("res = ", res);
 				if (res.type === 'redirect') {
                     await goto(res.location);
                 }
